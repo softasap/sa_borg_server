@@ -1,0 +1,83 @@
+---
+
+  - name: Borg | Epel dependency
+    shell: yum -y makecache && yum -y install epel-release
+    become: yes
+    register: result
+    until: result is succeeded
+    retries: 3
+    when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+
+  - name: Borg | Install package
+    package:
+      name: borgbackup
+      state: present
+    become: yes
+    tags:
+      - borg
+
+  - name: Borg | Create group
+    group:
+      name: "{{ borg_group }}"
+      state: present
+    become: yes
+    tags:
+      - borg
+
+  - name: Borg | Create user
+    user:
+      name: "{{ borg_user }}"
+      shell: /bin/bash
+      home: "{{ borg_data_dir }}"
+      group: "{{ borg_group }}"
+      groups: []
+    become: yes
+    tags:
+      - borg
+
+  - name: Borg | Create repo directories
+    file:
+      path: "{{ borg_data_dir }}/repos/{{ item.name }}"
+      state: directory
+      owner: "{{ borg_user }}"
+      group: "{{ borg_group }}"
+      mode: "u=rwx,g=,o="
+    with_items:
+      - "{{ borg_clients }}"
+    become: yes
+    tags:
+      - borg
+
+# https://borgbackup.readthedocs.io/en/stable/usage/notes.html#append-only-mode
+  - name: Borg | Add keys with append only mode
+    authorized_key:
+      user: "{{ borg_user }}"
+      key: "{{ item.key }}"
+      key_options: >-
+          command="cd {{ borg_data_dir }}/repos/{{ item.name }} &&
+          borg serve
+          --append-only
+          --restrict-to-path {{ borg_data_dir }}/repos/{{ item.name }}
+          ",restrict'
+    with_items:
+      - "{{ borg_clients }}"
+    when: item.append_only | default(false) or borg_append_only
+    become: yes
+    tags:
+      - borg
+
+  - name: Borg | Add keys without append only mode
+    authorized_key:
+      user: "{{ borg_user }}"
+      key: "{{ item.key }}"
+      key_options: >-
+          command="cd {{ borg_data_dir }}/repos/{{ item.name }} &&
+          borg serve
+          --restrict-to-path {{ borg_data_dir }}/repos/{{ item.name }}
+          ",restrict'
+    with_items:
+      - "{{ borg_clients }}"
+    when: not (item.append_only | default(false) or borg_append_only)
+    become: yes
+    tags:
+      - borg

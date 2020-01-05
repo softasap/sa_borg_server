@@ -1,0 +1,10 @@
+---
+
+borg_user: borg
+borg_group: borg
+
+borg_data_dir: /opt/borg
+
+borg_clients: []
+
+borg_append_only: false
