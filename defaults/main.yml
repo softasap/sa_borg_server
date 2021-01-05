@@ -1,7 +1,7 @@
 ---
 
-borg_user: borg
-borg_group: borg
+borg_user: backup
+borg_group: backup
 
 borg_data_dir: /opt/borg
 

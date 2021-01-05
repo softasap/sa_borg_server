@@ -43,6 +43,25 @@ roles:
        }
 ```
 
+Side notes
+----------
+
+If for any reason you want to install package using python , you would need following deps:
+
+```
+  - python3
+  - python3-dev
+  - python3-pip
+  - python-virtualenv
+  - libssl-dev
+  - openssl
+  - libacl1-dev
+  - libacl1
+  - build-essential
+  - libfuse-dev
+  - fuse
+  - pkg-config
+```
 
 
 Usage with ansible galaxy workflow
