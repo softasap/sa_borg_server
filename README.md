@@ -2,6 +2,7 @@ sa_borg_server
 ==============
 
 [![Build Status](https://travis-ci.com/softasap/sa_borg_server.svg?branch=master)](https://travis-ci.com/softasap/sa_borg_server)
+[![Build Status](https://github.com/softasap/sa_borg_server/workflows/CI/badge.svg?event=push)](https://github.com/softasap/sa_borg_server/actions?query=workflow%3ACI)
 
 Configures borg server per https://borgbackup.readthedocs.io/en/stable/deployment/central-backup-server.html
 

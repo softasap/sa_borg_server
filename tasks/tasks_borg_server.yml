@@ -1,12 +1,18 @@
 ---
 
+  - name: Check if epelrelease is installed
+    yum:
+        list=epel-release*
+    register: epel
+    when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+
   - name: Borg | Epel dependency
     shell: yum -y makecache && yum -y install epel-release
     become: yes
     register: result
     until: result is succeeded
     retries: 3
-    when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+    when: (ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux') and epel.results[0].yumstate == 'installed'
     tags:
       - borg
       - skip_ansible_lint
