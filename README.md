@@ -53,7 +53,7 @@ If for any reason you want to install package using python , you would need foll
   - python3-dev
   - python3-pip
   - python-virtualenv
-  - libffi-dev  
+  - libffi-dev
   - libssl-dev
   - openssl
   - libacl1-dev
@@ -98,9 +98,9 @@ Next step would be either render or generate config.
 sudo generate-borgmatic-config --destination /etc/borgmatic/config.yaml
 ```
 
-You may find yourself wanting to create different backup policies for different 
-applications on your system. For instance, you may want one backup configuration 
-for your database data directory, and a different configuration for your user 
+You may find yourself wanting to create different backup policies for different
+applications on your system. For instance, you may want one backup configuration
+for your database data directory, and a different configuration for your user
 home directories.
 
 The way to accomplish that is pretty simple: Create multiple separate configuration
@@ -112,17 +112,17 @@ sudo generate-borgmatic-config --destination /etc/borgmatic.d/app1.yaml
 sudo generate-borgmatic-config --destination /etc/borgmatic.d/app2.yaml
 ```
 
-If you encrypt your Borg repository with a passphrase or a key file, you'll either 
-need to set the borgmatic encryption_passphrase configuration variable or set 
+If you encrypt your Borg repository with a passphrase or a key file, you'll either
+need to set the borgmatic encryption_passphrase configuration variable or set
 the BORG_PASSPHRASE environment variable.
 
-If you'd like to validate that your borgmatic configuration is valid, the 
+If you'd like to validate that your borgmatic configuration is valid, the
 following command is available for that:
 
 ```sh
 sudo validate-borgmatic-config -c path-to-config-folder/
 ```
-This command's exit status ($? in Bash) is zero when configuration is valid and 
+This command's exit status ($? in Bash) is zero when configuration is valid and
 non-zero otherwise.
 
 Configuring ntfy:
@@ -161,7 +161,7 @@ borg init backup@46.137.224.247:/opt/borg/repos/rocketracoon/sample --encryption
 
 ### Backing up postgres databases.
 
-You would need client tools installed, like 
+You would need client tools installed, like
 `apt install postgresql-client-9.6` for ubuntu:
 
 ```sh
@@ -212,4 +212,4 @@ Join gitter discussion channel at [Gitter](https://gitter.im/softasap)
 
 Discover other roles at  http://www.softasap.com/roles/registry_generated.html
 
-visit our blog at http://www.softasap.com/blog/archive.html 
+visit our blog at http://www.softasap.com/blog/archive.html
