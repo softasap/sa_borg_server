@@ -1,5 +1,5 @@
 
-FROM fedora:25
+FROM fedora:32
 
 ENV container docker
 
@@ -22,7 +22,7 @@ STOPSIGNAL SIGRTMIN+3
 
 # Install Ansible
 RUN dnf -y update
-RUN dnf install -y python3 python3-pip python3-dnf libselinux-python3 sudo redhat-rpm-config
+RUN dnf install -y python3 python3-pip python3-dnf libselinux-python3 sudo
 RUN pip3 install -U ansible-lint==3.4.23
 #RUN pip3 install -U ansible==2.9.6
 RUN mkdir -p /etc/ansible

@@ -1,9 +1,8 @@
 ---
+borg_user: backup
+borg_group: backup
 
-borg_user: borg
-borg_group: borg
-
-borg_data_dir: /opt/borg
+borg_data_dir: "/home/{{ borg_user }}"
 
 borg_clients: []
 

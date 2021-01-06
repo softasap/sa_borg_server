@@ -26,4 +26,3 @@ Stages
     ├── verify
     ├── cleanup
     └── destroy
-

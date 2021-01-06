@@ -1,8 +1,1 @@
 ---
-
-box_borg_clients:
-  - name: server_1
-    key: "{{ lookup('file', 'files/server1_rsa.pub') }}"
-  - name: server_2
-    key: "{{ lookup('file', 'files/server2_rsa.pub') }}"
-    append_only: true
