@@ -61,7 +61,7 @@ jobs:
           python-version: '3.6'
 
       - name: Install test dependencies.
-        run: pip3 install ansible molecule[docker] docker
+        run: pip install ansible molecule[docker] docker
 
       - name: Run Molecule tests.
         run: molecule test -s docker
@@ -69,3 +69,4 @@ jobs:
           PY_COLORS: '1'
           ANSIBLE_FORCE_COLOR: '1'
           MOLECULE_DISTRO: ${{ matrix.distro }}
+          MOLECULE_TEST_ROLE: role_under_test

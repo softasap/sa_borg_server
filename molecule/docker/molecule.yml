@@ -11,7 +11,15 @@ platforms:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     privileged: true
     pre_build_image: true
+ansible:
+  lint:
+    name: ansible-lint
 provisioner:
   name: ansible
   playbooks:
     converge: ${MOLECULE_PLAYBOOK:-converge.yml}
+  inventory:
+    host_vars:
+      instance:
+        foo: bar
+        role_under_test: ${MOLECULE_TEST_ROLE:-sa_borg_server}
