@@ -63,6 +63,89 @@ If for any reason you want to install package using python , you would need foll
   - pkg-config
 ```
 
+Borgmatic client install
+------------------------
+
+```sh
+# Custom notification backend (optional) https://github.com/dschep/ntfy
+pip3 install --upgrade ntfy[pid,emoji,xmpp,telegram,instapush,slack,rocketchat]
+
+# Borgmatic itself
+pip3 install --upgrade borgmatic
+```
+
+depending on your scenario you are about to install it either to some user (recommended),
+or directly to root - if you are dealing with multiple user system, and do not want to deal
+with granting access to "backup" group.
+
+You can also install both tools locally for current user (i.e. including "--user") if needed.
+
+Next step would be either render or generate config.
+
+```sh
+sudo generate-borgmatic-config --destination /etc/borgmatic/config.yaml
+```
+
+You may find yourself wanting to create different backup policies for different 
+applications on your system. For instance, you may want one backup configuration 
+for your database data directory, and a different configuration for your user 
+home directories.
+
+The way to accomplish that is pretty simple: Create multiple separate configuration
+files and place each one in a /etc/borgmatic.d/ directory. For instance:
+
+```sh
+sudo mkdir /etc/borgmatic.d
+sudo generate-borgmatic-config --destination /etc/borgmatic.d/app1.yaml
+sudo generate-borgmatic-config --destination /etc/borgmatic.d/app2.yaml
+```
+
+If you encrypt your Borg repository with a passphrase or a key file, you'll either 
+need to set the borgmatic encryption_passphrase configuration variable or set 
+the BORG_PASSPHRASE environment variable.
+
+If you'd like to validate that your borgmatic configuration is valid, the 
+following command is available for that:
+
+```sh
+sudo validate-borgmatic-config -c path-to-config-folder/
+```
+This command's exit status ($? in Bash) is zero when configuration is valid and 
+non-zero otherwise.
+
+Configuring ntfy:
+
+```sh
+   echo -e 'backends: ["pushover"]\npushover: {"user_key": "t0k3n"}' > ~/.ntfy.yml
+```
+
+or in extended form, ntfy config looks like
+
+```yaml
+---
+backends:
+    - pushover
+pushover:
+    user_key: hunter2
+pushbullet:
+    access_token: hunter2
+simplepush:
+    key: hunter2
+slack:
+    token: slacktoken
+    recipient: "#slackchannel"
+xmpp:
+     jid: "user@gmail.com"
+     password: "xxxx"
+     mtype: "chat"
+     recipient: "me@jit.si"
+```
+
+before running first backup, you need to initialize repo, kind of
+(set enryption on for prod use)
+```sh
+borg init backup@46.137.224.247:/opt/borg/repos/rocketracoon/sample --encryption none
+```
 
 Usage with ansible galaxy workflow
 ----------------------------------
