@@ -74,7 +74,7 @@ If you installed the `sa_borg_server` role using the command
    ansible-galaxy install softasap.sa_borg_server
 `
 
-the role will be available in the folder `softasap.sa_falco`
+the role will be available in the folder `softasap.sa_borg_server`
 Please adjust the path accordingly.
 
 ```YAML

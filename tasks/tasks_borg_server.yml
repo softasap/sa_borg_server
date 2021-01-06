@@ -9,10 +9,21 @@
     when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
 
   - name: Borg | Install package
+    apt:
+      update_cache: yes
+      name: borgbackup
+      state: present
+    become: yes
+    when: ansible_os_family in ["Debian"]
+    tags:
+      - borg
+
+  - name: Borg | Install package
     package:
       name: borgbackup
       state: present
     become: yes
+    when: ansible_os_family not in ["Debian"]
     tags:
       - borg
 
