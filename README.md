@@ -53,6 +53,7 @@ If for any reason you want to install package using python , you would need foll
   - python3-dev
   - python3-pip
   - python-virtualenv
+  - libffi-dev  
   - libssl-dev
   - openssl
   - libacl1-dev
@@ -73,6 +74,17 @@ pip3 install --upgrade ntfy[pid,emoji,xmpp,telegram,instapush,slack,rocketchat]
 # Borgmatic itself
 pip3 install --upgrade borgmatic
 ```
+
+install client borg (recommended as self contained binary)
+
+```sh
+  sudo curl -sLo /usr/bin/borg https://github.com/borgbackup/borg/releases/download/1.1.15/borg-linux64
+  sudo chmod +x /usr/bin/borg
+
+```
+
+curl -sLo ~/dotfiles/bin/borg https://github.com/borgbackup/borg/releases/download/1.1.15/borg-linux64
+chmod +x ~/dotfiles/bin/borg
 
 depending on your scenario you are about to install it either to some user (recommended),
 or directly to root - if you are dealing with multiple user system, and do not want to deal
@@ -145,6 +157,22 @@ before running first backup, you need to initialize repo, kind of
 (set enryption on for prod use)
 ```sh
 borg init backup@46.137.224.247:/opt/borg/repos/rocketracoon/sample --encryption none
+```
+
+### Backing up postgres databases.
+
+You would need client tools installed, like 
+`apt install postgresql-client-9.6` for ubuntu:
+
+```sh
+wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | \
+sudo apt-key add -
+
+sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main" >> /etc/apt/sources.list.d/postgresql.list'
+
+sudo apt update
+
+sudo apt install postgresql-client-9.6
 ```
 
 Usage with ansible galaxy workflow
