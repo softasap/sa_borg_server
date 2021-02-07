@@ -79,7 +79,7 @@ jobs:
 #        run: pip3 install ansible==2.9.6 molecule[docker] docker
 
       - name: Run Molecule tests.
-        run: pipenv run molecule test -s docker
+        run: pipenv run molecule converge -s docker
         env:
           PY_COLORS: '1'
           ANSIBLE_FORCE_COLOR: '1'
