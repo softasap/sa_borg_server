@@ -14,6 +14,7 @@ molecule-digitalocean = "*"
 pytest-molecule = "*"
 molecule-ec2 = "*"
 flake8 = "*"
+python-vagrant = "*"
 
 [requires]
 python_version = "3.6"
