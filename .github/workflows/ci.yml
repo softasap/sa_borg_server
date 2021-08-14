@@ -28,10 +28,13 @@ jobs:
       - name: Set up Python 3.
         uses: actions/setup-python@v2
         with:
-          python-version: '3.x'
+          python-version: '3.6'
 
       - name: Install test dependencies.
-        run: pip3 install yamllint ansible-lint
+        run: pip3 install yamllint ansible-lint ansible==2.9.20
+
+      - name: Install ansible-galaxy dependencies
+        run: ansible-galaxy collection install community.docker
 
       - name: Lint code.
         run: |
@@ -59,7 +62,7 @@ jobs:
       - name: Set up Python 3.
         uses: actions/setup-python@v2
         with:
-          python-version: '3.x'
+          python-version: '3.6'
 
       - name: Install pipenv
         run: |
@@ -77,6 +80,9 @@ jobs:
 
 #      - name: Install test dependencies.
 #        run: pip3 install ansible==2.9.6 molecule[docker] docker
+
+      - name: Install ansible-galaxy dependencies
+        run: pipenv run ansible-galaxy collection install community.docker
 
       - name: Run Molecule tests.
         run: pipenv run molecule test -s docker
